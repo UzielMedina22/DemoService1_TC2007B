@@ -53,12 +53,13 @@ export const updatePost = async (req, res) => {
 }
 
 export const deletePost = async (req, res) => {
+    const {id} = req.params;
     try {
         const deletePostQuery = `
             DELETE FROM posts
             WHERE id = ($1);
         `;
-        const result = await query(deletePostQuery);
+        const result = await query(deletePostQuery, id);
 
         if (result.rows.length === 0) {
             return res.status(400).json({error: "No posts found"})
