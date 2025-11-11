@@ -21,11 +21,11 @@ export const getAllPosts = async (req, res) => {
         const getPostsQuery = `
             SELECT id, content, created_at
             FROM posts
-            ORDERED BY created_at DESC;
+            ORDER BY created_at DESC;
         `;
         const result = await query(getPostsQuery);
         res.json(result.rows)
     } catch (error) {
-        res.status(400)
+        res.status(400).json({error: error.message});
     }
 }
