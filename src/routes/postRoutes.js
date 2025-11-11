@@ -2,13 +2,15 @@ import express from "express";
 import {
     createPost,
     getAllPosts,
-    updatePostByID
+    updatePost,
+    deletePost
 } from "../controllers/postController.js"
 
 const postRoutes = express.Router();
 
 postRoutes.post("/", createPost)
 postRoutes.get("/", getAllPosts)
-postRoutes.patch("/:id", updatePostByID)
+postRoutes.patch("/:id", updatePost)
+postRoutes.delete("/:id", updatePost)
 
 export default postRoutes;
