@@ -1,5 +1,5 @@
 import express from "express";
-import postRoutes from "./routes/postRoutes"
+import postRoutes from "./routes/postRoutes.js"
 import cors from "cors";
 import dotenv from "dotenv";
 
