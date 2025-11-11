@@ -63,11 +63,6 @@ export const deletePost = async (req, res) => {
         `;
 
         const result = await query(deletePostQuery, [id]);
-
-        if (result.rows.length === 0) {
-            return res.status(400).json({error: "No posts found"});
-        }
-
         res.json(result.rows);
     } catch (error) {
         res.status(400).json({error: error.message});
