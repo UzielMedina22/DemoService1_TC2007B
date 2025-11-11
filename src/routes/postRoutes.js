@@ -4,9 +4,9 @@ import {
     getAllPosts
 } from "../controllers/postController"
 
-const router = express.Router();
+const postRoutes = express.Router();
 
-router.post("/", createPost)
-router.get("/", getAllPosts)
+postRoutes.post("/", createPost)
+postRoutes.get("/", getAllPosts)
 
-export default router;
+export default postRoutes;
