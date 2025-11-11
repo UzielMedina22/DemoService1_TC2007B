@@ -7,7 +7,7 @@ export const createPost = async (req, res) => {
         const insertPostQuery = `
             INSERT INTO posts (content)
             VALUES ($1)
-            RETURNING id, content, created_at;
+            RETURNING id, content, created_at, updated_at;
         `;
         const result = await query(insertPostQuery, [content]);
         res.json(result.rows[0]);
@@ -33,20 +33,21 @@ export const getAllPosts = async (req, res) => {
 export const updatePost = async (req, res) => {
     const {id} = req.params;
     const {content} = req.body;
+
     try {
         const updatePostQuery = `
             UPDATE posts
             SET content = ($1), updated_at = NOW() 
             WHERE id = ($2)
-            RETURNING id, content, updated_at;
+            RETURNING id, content, created_at, updated_at;
         `;
-        const result = await query(updatePostQuery, [id, content]);
+
+        const result = await query(updatePostQuery, [content, id]);
 
         if (result.rows.length === 0) {
-            return res.status(400).json({error: "No posts found"})
+            return res.status(400).json({error: "No posts found."});
         }
-
-        res.json(result.rows[0])
+        res.json(result.rows[0]);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -54,18 +55,20 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     const {id} = req.params;
+
     try {
         const deletePostQuery = `
             DELETE FROM posts
             WHERE id = ($1);
         `;
-        const result = await query(deletePostQuery, id);
+
+        const result = await query(deletePostQuery, [id]);
 
         if (result.rows.length === 0) {
-            return res.status(400).json({error: "No posts found"})
+            return res.status(400).json({error: "No posts found"});
         }
 
-        res.json(result.rows)
+        res.json(result.rows);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
