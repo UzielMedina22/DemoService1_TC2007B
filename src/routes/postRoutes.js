@@ -9,6 +9,6 @@ const postRoutes = express.Router();
 
 postRoutes.post("/", createPost)
 postRoutes.get("/", getAllPosts)
-postRoutes.put("/", updatePostByID)
+postRoutes.put("/:id", updatePostByID)
 
 export default postRoutes;
