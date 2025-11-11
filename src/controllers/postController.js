@@ -29,3 +29,17 @@ export const getAllPosts = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
+export const updatePostByID = async (req, res) => {
+    try {
+        const getPostsQuery = `
+            UPDATE posts
+            SET content = ${req.body.content}
+            WHERE id = ${req.params.id};
+        `;
+        const result = await query(getPostsQuery);
+        res.json(result.rows)
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
